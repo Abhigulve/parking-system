@@ -28,6 +28,10 @@ public class ParkingFloor {
         return parkingLot;
     }
 
+    public static void clearAll() {
+        parkingLot = null;
+    }
+
     private Slot getNextEmptySlotOnFloor() throws NoEmptySlotAvailable {
         for (Slot slot : slots) {
             if (!slot.isEmpty()) {
@@ -115,4 +119,5 @@ public class ParkingFloor {
                 .findAny();
         return slotOptional.orElseThrow(()->new VehicleNotFoundException(String.format("Provided vehicle number %s is not present", vehicleNumber)));
     }
+
 }

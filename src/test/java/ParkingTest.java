@@ -61,7 +61,7 @@ public class ParkingTest {
     @Test
     public void getRegisterNumbersOfCarsByColorTest() throws NoEmptySlotAvailable {
         parkingFloor.unParkVehicle(1);
-        parkingFloor.unParkVehicle(2);
+//        parkingFloor.unParkVehicle(2);
         parkingFloor.parkVehicle(new Vehicle("MH-17-5663", "Black"));
         List<String> expected = Arrays.asList("MH-17-5663");
         List<String> actual = parkingFloor.getVehicleNumbersByColor("black");

@@ -1,4 +1,6 @@
 import commnads.Command;
+import model.ParkingFloor;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,5 +37,10 @@ public class ParkingAcceptanceTest {
             Command cmd = Command.valueOf(input[0]);
             cmd.executeCommand(input);
         });
+    }
+
+    @After
+    public void clearAll() {
+        ParkingFloor.clearAll();
     }
 }
