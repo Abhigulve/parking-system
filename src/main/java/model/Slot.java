@@ -1,32 +1,54 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author Abhijeet Gulve
  */
 public class Slot {
     private String id;
-    private Location slotLocation;
-    private SlotSize slotSize;
+    private Integer number;
     private boolean isEmpty;
-    private Date inTime;
-    private Date outTime;
+    private LocalDateTime inTime;
+    private Vehicle parkVehicle;
 
-    public Date getInTime() {
+    public Slot(String id, Integer number) {
+        this.id = id;
+        this.number = number;
+    }
+
+    public Vehicle getParkVehicle() {
+        return parkVehicle;
+    }
+
+    public void setParkVehicle(Vehicle parkVehicle) {
+        this.parkVehicle = parkVehicle;
+    }
+
+    public void removeVehicle() {
+        parkVehicle = null;
+        this.isEmpty = false;
+    }
+
+    public void placeVehicle(Vehicle parkVehicle) {
+        this.parkVehicle = parkVehicle;
+        this.isEmpty = true;
+    }
+
+    public Integer getSlotNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    public LocalDateTime getInTime() {
         return inTime;
     }
 
-    public void setInTime(Date inTime) {
+    public void setInTime(LocalDateTime inTime) {
         this.inTime = inTime;
-    }
-
-    public Date getOutTime() {
-        return outTime;
-    }
-
-    public void setOutTime(Date outTime) {
-        this.outTime = outTime;
     }
 
     public boolean isEmpty() {
@@ -43,21 +65,5 @@ public class Slot {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Location getSlotLocation() {
-        return slotLocation;
-    }
-
-    public void setSlotLocation(Location slotLocation) {
-        this.slotLocation = slotLocation;
-    }
-
-    public SlotSize getSlotSize() {
-        return slotSize;
-    }
-
-    public void setSlotSize(SlotSize slotSize) {
-        this.slotSize = slotSize;
     }
 }
