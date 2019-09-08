@@ -70,7 +70,7 @@ public class ParkingTest {
 
     @Test(expected = VehicleNotFoundException.class)
     public void getRegisterNumbersOfCarsByColorWithNoVehicleMatchTest() {
-        parkingFloor.getVehicleNumbersByColor("Black");
+        parkingFloor.getVehicleNumbersByColor("Blue");
     }
 
     @Test
