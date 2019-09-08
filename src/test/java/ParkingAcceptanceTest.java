@@ -17,7 +17,8 @@ public class ParkingAcceptanceTest {
 
     @Before
     public void setUp() {
-        File file = new File("/home/gulve/Downloads/parking-lot-1.4.2/parking_lot/functional_spec/fixtures/file_input.txt");
+        System.getProperty("user.dir");
+        File file = new File(System.getProperty("user.dir") + "/../functional_spec/fixtures/file_input.txt");
         BufferedReader br;
         String st;
         try {
