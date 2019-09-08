@@ -113,6 +113,6 @@ public class ParkingFloor {
         Optional<Integer> slotOptional = slots.stream()
                 .filter(slot->slot.getParkVehicle().getVehicleNumber().equalsIgnoreCase(vehicleNumber)).map(Slot::getSlotNumber)
                 .findAny();
-        return slotOptional.orElseThrow(()->new VehicleNotFoundException(String.format("Provided vehicle number %d is not present", vehicleNumber)));
+        return slotOptional.orElseThrow(()->new VehicleNotFoundException(String.format("Provided vehicle number %s is not present", vehicleNumber)));
     }
 }
