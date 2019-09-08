@@ -12,12 +12,20 @@ import java.util.stream.Collectors;
  * @author Abhijeet Gulve
  */
 public class ParkingFloor {
+    private static ParkingFloor parkingLot;
     private int floorNumber;
     private List<Slot> slots;
 
-    public ParkingFloor(int floorNumber) {
+
+    private ParkingFloor(int floorNumber) {
         this.floorNumber = floorNumber;
         this.slots = new ArrayList<>();
+    }
+
+    public static ParkingFloor getParkingFloor(int floorNumber) {
+        if (parkingLot == null)
+            parkingLot = new ParkingFloor(floorNumber);
+        return parkingLot;
     }
 
     private Slot getNextEmptySlotOnFloor() throws NoEmptySlotAvailable {
@@ -30,14 +38,21 @@ public class ParkingFloor {
     }
 
     public boolean createParkingSLot(int numberOfSlots) {
-        if (!InputValidator.isValidSlotNumber(numberOfSlots)) {
+        if (inputValidator(InputValidator.isValidSlotNumber(numberOfSlots)) || slots.size() > 0)
             return false;
-        }
+
         for (int i = 1; i <= numberOfSlots; i++) {
             slots.add(new Slot(UUID.randomUUID().toString(), i));
         }
         System.out.printf("Created a parking lot with %s slots %n", numberOfSlots);
         return true;
+    }
+
+    private boolean inputValidator(boolean validSlotNumber) {
+        if (!validSlotNumber) {
+            return true;
+        }
+        return false;
     }
 
     public boolean parkVehicle(Vehicle vehicle) throws NoEmptySlotAvailable {
@@ -47,44 +62,57 @@ public class ParkingFloor {
         return true;
     }
 
-    public boolean unParkVehicle(int slotNumber) {
+    public int unParkVehicle(int slotNumber) {
+        if (slotNumber <= 0) {
+            throw new InvalidSlotNumberException(String.format("%d is invalid slot number,slotNumber > 1", slotNumber));
+        }
         Slot slot = slots.get(slotNumber - 1);
         if (slot != null) {
             slot.removeVehicle();
-            System.out.printf("Slot number %d is free \n", slotNumber);
         } else {
             throw new InvalidSlotNumberException(String.format("%d is invalid slot number", slotNumber));
         }
-        return true;
+        return slotNumber;
     }
 
-
     public void printStatus() {
-        System.out.println("Slot No. Registration No Colour ");
+        System.out.println("Slot No.  Registration No   Color");
         slots.forEach(slot->{
             if (!slots.isEmpty()) {
                 Vehicle parkVehicle = slot.getParkVehicle();
                 if (parkVehicle != null)
-                    System.out.printf("%d       %s      %s\n", slot.getSlotNumber(), parkVehicle.getVehicleNumber(), parkVehicle.getVehicleColor());
+                    System.out.printf("%d          %s    %s\n", slot.getSlotNumber(), parkVehicle.getVehicleNumber(), parkVehicle.getVehicleColor());
             }
         });
     }
 
-    public List<Slot> getVehicleSlotsByColor(String color) {
-        List<Slot> slots = this.slots.stream()
-                .filter(slot->slot.getParkVehicle().getVehicleColor().equalsIgnoreCase(color))
-                .collect(Collectors.toList());
-        if (slots.isEmpty()) {
+    public List<String> getVehicleNumbersByColor(String color) {
+        List<String> vehicleNumbers = new ArrayList<>();
+        slots.forEach(slot->{
+            if (slot.isEmpty() && slot.getParkVehicle().getVehicleColor().equalsIgnoreCase(color)) {
+                vehicleNumbers.add(slot.getParkVehicle().getVehicleNumber());
+            }
+        });
+        if (vehicleNumbers.isEmpty()) {
             throw new VehicleNotFoundException(String.format("Vehicle not found for color %s", color));
         }
-        return slots;
+        return vehicleNumbers;
     }
 
-    public Slot getSlotNumberByVehicleNumber(String vehicleNumber) {
-        Optional<Slot> slotOptional = slots.stream()
-                .filter(slot->slot.getParkVehicle().getVehicleNumber().equalsIgnoreCase(vehicleNumber))
+    public List<Integer> getSlotNumbersByColor(String color) {
+        List<Integer> slotNumbers = this.slots.stream()
+                .filter(slot->slot.isEmpty() && slot.getParkVehicle().getVehicleColor().equalsIgnoreCase(color)).map(Slot::getSlotNumber)
+                .collect(Collectors.toList());
+        if (slotNumbers.isEmpty()) {
+            throw new VehicleNotFoundException(String.format("Vehicle not found for color %s", color));
+        }
+        return slotNumbers;
+    }
+
+    public Integer getSlotNumberByVehicleNumber(String vehicleNumber) {
+        Optional<Integer> slotOptional = slots.stream()
+                .filter(slot->slot.getParkVehicle().getVehicleNumber().equalsIgnoreCase(vehicleNumber)).map(Slot::getSlotNumber)
                 .findAny();
         return slotOptional.orElseThrow(()->new VehicleNotFoundException(String.format("Provided vehicle number %d is not present", vehicleNumber)));
     }
-
 }
