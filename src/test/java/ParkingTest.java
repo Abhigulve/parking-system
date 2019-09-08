@@ -28,44 +28,42 @@ public class ParkingTest {
 
     @Test
     public void parkVehicleValidTest() {
-        Assert.assertTrue(parkingFloor.createParkingSLot(6));
+        Assert.assertTrue(parkingFloor.createParkingSLot(2));
     }
 
     @Test(expected = NoEmptySlotAvailable.class)
     public void parkVehicleNoSlotAvailableTest() throws NoEmptySlotAvailable {
         parkingFloor.parkVehicle(new Vehicle("MH-17-5663", "Black"));
+        parkingFloor.parkVehicle(new Vehicle("MH-13-5123", "Red"));
+        parkingFloor.parkVehicle(new Vehicle("MH-14-2342", "Black"));
+    }
+
+    @Test
+    public void unParkVehicleFromParkingTest(){
+        Assert.assertEquals(1, parkingFloor.unParkVehicle(1));
     }
 
     @Test
     public void parkVehicleSlotAvailableTest() throws NoEmptySlotAvailable {
-        parkingFloor.createParkingSLot(2);
+        parkingFloor.unParkVehicle(1);
         Assert.assertTrue(parkingFloor.parkVehicle(new Vehicle("MH-17-5663", "Black")));
     }
 
     @Test(expected = NoEmptySlotAvailable.class)
     public void parkingFullVehicleTest() throws NoEmptySlotAvailable {
-        parkingFloor.createParkingSLot(1);
         parkingFloor.parkVehicle(new Vehicle("MH-17-5663", "Black"));
         parkingFloor.parkVehicle(new Vehicle("MH-17-5663", "White"));
     }
 
-    @Test
-    public void unParkVehicleFromParkingTest() throws NoEmptySlotAvailable {
-        parkingFloor.createParkingSLot(2);
-        parkingFloor.parkVehicle(new Vehicle("MH-17-5663", "Black"));
-        Assert.assertEquals(1, parkingFloor.unParkVehicle(1));
-    }
 
     @Test(expected = InvalidSlotNumberException.class)
     public void unParkVehicleFromParkingInvalidTest() throws NoEmptySlotAvailable {
-        parkingFloor.createParkingSLot(2);
         parkingFloor.parkVehicle(new Vehicle("MH-17-5663", "Black"));
         parkingFloor.unParkVehicle(-2);
     }
 
     @Test
     public void getRegisterNumbersOfCarsByColorTest() throws NoEmptySlotAvailable {
-        parkingFloor.createParkingSLot(2);
         parkingFloor.parkVehicle(new Vehicle("MH-17-5663", "Black"));
         List<String> expected = Arrays.asList("MH-17-5663");
         List<String> actual = parkingFloor.getVehicleNumbersByColor("black");
@@ -74,17 +72,13 @@ public class ParkingTest {
 
 
     @Test(expected = VehicleNotFoundException.class)
-    public void getRegisterNumbersOfCarsByColorWithNoVehicleMatchTest() throws NoEmptySlotAvailable {
-        parkingFloor.createParkingSLot(2);
-        parkingFloor.parkVehicle(new Vehicle("MH-17-5663", "Black"));
+    public void getRegisterNumbersOfCarsByColorWithNoVehicleMatchTest() {
         parkingFloor.getVehicleNumbersByColor("Red");
     }
 
 
     @Test
-    public void getSlotNumberOfCarsByVehicleNumberTest() throws NoEmptySlotAvailable {
-        parkingFloor.createParkingSLot(2);
-        parkingFloor.parkVehicle(new Vehicle("MH-17-5663", "Black"));
+    public void getSlotNumberOfCarsByVehicleNumberTest() {
         Assert.assertEquals(java.util.Optional.of(1).get(), parkingFloor.getSlotNumberByVehicleNumber("MH-17-5663"));
     }
 
