@@ -1,4 +1,4 @@
-import commnads.Command;
+import commands.Command;
 import model.ParkingFloor;
 import org.junit.After;
 import org.junit.Before;

@@ -1,4 +1,4 @@
-package commnads;
+package commands;
 
 import exception.NoEmptySlotAvailable;
 import model.ParkingFloor;

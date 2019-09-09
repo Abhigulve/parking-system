@@ -1,4 +1,4 @@
-import commnads.Command;
+import commands.Command;
 import validator.InputValidator;
 
 import java.util.Scanner;
