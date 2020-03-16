@@ -44,12 +44,11 @@ public class ParkingTest {
 
     @Test
     public void unParkVehicleFromParkingTest() throws NoEmptySlotAvailable, InvalidVehicleNumber {
-        parkVehicleNoSlotAvailableTest();
         Assert.assertEquals(30, parkingFloor.unPark("MH-17-5663", 4, new DefaultStrategy()));
     }
 
     @Test(expected = InvalidVehicleNumber.class)
     public void parkVehicleSlotAvailableTest() throws InvalidVehicleNumber {
-        parkingFloor.unPark("MH-17-5663", 4, new DefaultStrategy());
+        parkingFloor.unPark("MH-13-512er3", 4, new DefaultStrategy());
     }
 }
