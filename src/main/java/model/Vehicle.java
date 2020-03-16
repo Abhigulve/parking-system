@@ -6,11 +6,10 @@ package model;
 public class Vehicle {
 
     private String vehicleNumber;
-    private String vehicleColor;
 
-    public Vehicle(String vehicleNumber, String vehicleColor) {
+
+    public Vehicle(String vehicleNumber) {
         this.vehicleNumber = vehicleNumber;
-        this.vehicleColor = vehicleColor;
     }
 
     public String getVehicleNumber() {
@@ -21,11 +20,5 @@ public class Vehicle {
         this.vehicleNumber = vehicleNumber;
     }
 
-    public String getVehicleColor() {
-        return vehicleColor;
-    }
 
-    public void setVehicleColor(String vehicleColor) {
-        this.vehicleColor = vehicleColor;
-    }
 }

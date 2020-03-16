@@ -3,6 +3,7 @@ package commands;
 import exception.NoEmptySlotAvailable;
 import model.ParkingFloor;
 import model.Vehicle;
+import statergy.DefaultStrategy;
 
 public enum Command implements CommandI {
 
@@ -17,7 +18,7 @@ public enum Command implements CommandI {
         @Override
         public void executeCommand(String[] details) {
             try {
-                floor.parkVehicle(new Vehicle(details[1], details[2]));
+                floor.parkVehicle(new Vehicle(details[1]));
             } catch (NoEmptySlotAvailable noEmptySlotAvailable) {
                 System.out.println("Sorry, parking lot is full");
             }
@@ -27,12 +28,10 @@ public enum Command implements CommandI {
         @Override
         public void executeCommand(String[] details) {
             try {
-                int slotNumber = floor.unParkVehicle(Integer.parseInt(details[1]));
-                System.out.printf("Slot number %d is free \n", slotNumber);
+                floor.unPark(details[1], Integer.parseInt(details[2]),new DefaultStrategy());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-
         }
     },
     status {
@@ -42,23 +41,7 @@ public enum Command implements CommandI {
 
         }
     },
-    registration_numbers_for_cars_with_colour {
-        @Override
-        public void executeCommand(String[] details) {
-            floor.getVehicleNumbersByColor(details[1]).forEach(vehicleNumber->{
-                System.out.print(vehicleNumber + ", ");
-            });
-            System.out.println();
-        }
-    },
 
-    slot_numbers_for_cars_with_colour {
-        @Override
-        public void executeCommand(String[] details) {
-            floor.getSlotNumbersByColor(details[1]).forEach(num->System.out.print(num + ","));
-            System.out.println();
-        }
-    },
     slot_number_for_registration_number {
         @Override
         public void executeCommand(String[] details) {
@@ -83,6 +66,5 @@ public enum Command implements CommandI {
 
 interface CommandI {
     ParkingFloor floor = ParkingFloor.getParkingFloor(1);
-
     void executeCommand(String[] details);
 }
