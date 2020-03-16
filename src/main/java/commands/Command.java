@@ -28,7 +28,7 @@ public enum Command implements CommandI {
         @Override
         public void executeCommand(String[] details) {
             try {
-                floor.unPark(details[1], Integer.parseInt(details[2]),new DefaultStrategy());
+                floor.unPark(details[1], Integer.parseInt(details[2]), new DefaultStrategy());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -42,16 +42,6 @@ public enum Command implements CommandI {
         }
     },
 
-    slot_number_for_registration_number {
-        @Override
-        public void executeCommand(String[] details) {
-            try {
-                System.out.println(floor.getSlotNumberByVehicleNumber(details[1]));
-            } catch (Exception e) {
-                System.out.println("Not Found");
-            }
-        }
-    },
     exit() {
         @Override
         public void executeCommand(String[] details) {
@@ -66,5 +56,6 @@ public enum Command implements CommandI {
 
 interface CommandI {
     ParkingFloor floor = ParkingFloor.getParkingFloor(1);
+
     void executeCommand(String[] details);
 }
