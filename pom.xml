@@ -41,7 +41,7 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>./src/main/java/Client</mainClass>
+                    <mainClass>Client</mainClass>
                 </configuration>
             </plugin>
             <plugin>
