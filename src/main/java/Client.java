@@ -36,12 +36,8 @@ public class Client {
         System.out.println("***************************************************************************************");
         System.out.println("*******************************  SAMPLE INPUT COMMANDS  *******************************");
         System.out.println("1. create_parking_lot {capacity}");
-        System.out.println("2. park {VehicleNUmber} {VehicleColor}");
-        System.out.println("3. leave {SlotNumber}");
+        System.out.println("2. park {car_number}");
+        System.out.println("3. leave {VehicleNUmber} {hours}");
         System.out.println("4. status");
-        System.out.println("5. park {VehicleNUmber} {VehicleColor}");
-        System.out.println("6. registration_numbers_for_cars_with_colour {VehicleColor}");
-        System.out.println("7. slot_numbers_for_cars_with_colour {VehicleColor}");
-        System.out.println("8. slot_number_for_registration_number {VehicleNUmber}");
     }
 }

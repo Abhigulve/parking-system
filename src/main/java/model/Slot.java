@@ -9,7 +9,6 @@ public class Slot {
     private String id;
     private Integer number;
     private boolean isEmpty;
-    private LocalDateTime inTime;
     private Vehicle parkVehicle;
 
     public Slot(String id, Integer number) {
@@ -41,14 +40,6 @@ public class Slot {
 
     public void setNumber(Integer number) {
         this.number = number;
-    }
-
-    public LocalDateTime getInTime() {
-        return inTime;
-    }
-
-    public void setInTime(LocalDateTime inTime) {
-        this.inTime = inTime;
     }
 
     public boolean isEmpty() {
