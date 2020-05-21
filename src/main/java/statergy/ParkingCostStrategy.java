@@ -1,5 +1,5 @@
 package statergy;
 
-public interface ParkingCost {
+public interface ParkingCostStrategy {
     int getCost(int parkHours);
 }

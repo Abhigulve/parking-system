@@ -1,6 +1,6 @@
 package statergy;
 
-public class DefaultStrategy implements ParkingCost {
+public class DefaultStrategy implements ParkingCostStrategy {
     @Override
     public int getCost(int parkHours) {
         if (parkHours < 2) {

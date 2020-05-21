@@ -1,5 +1,5 @@
 import commands.Command;
-import model.ParkingFloor;
+import model.Parking;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,6 +42,6 @@ public class ParkingAcceptanceTest {
 
     @After
     public void clearAll() {
-        ParkingFloor.clearAll();
+        Parking.clearAll();
     }
 }

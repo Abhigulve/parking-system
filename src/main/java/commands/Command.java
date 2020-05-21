@@ -1,13 +1,12 @@
 package commands;
 
 import exception.NoEmptySlotAvailable;
-import model.ParkingFloor;
+import model.Parking;
 import model.Vehicle;
 import statergy.DefaultStrategy;
 
 public enum Command implements CommandI {
-
-    create_parking_lot() {
+    create_parking_lot {
         @Override
         public void executeCommand(String[] details) {
             floor.createParkingSLot(Integer.parseInt(details[1]));
@@ -42,12 +41,13 @@ public enum Command implements CommandI {
         }
     },
 
-    exit() {
+    exit {
         @Override
         public void executeCommand(String[] details) {
 
         }
-    }
+    };
+    Parking floor = Parking.getParkingFloor(1);
 }
 
 /**
@@ -55,7 +55,5 @@ public enum Command implements CommandI {
  */
 
 interface CommandI {
-    ParkingFloor floor = ParkingFloor.getParkingFloor(1);
-
     void executeCommand(String[] details);
 }

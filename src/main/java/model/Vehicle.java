@@ -18,6 +18,4 @@ public class Vehicle {
     public void setVehicleNumber(String vehicleNumber) {
         this.vehicleNumber = vehicleNumber;
     }
-
-
 }
